@@ -2,31 +2,30 @@
 
 | 字段 | 值 |
 | --- | --- |
-| 是否已运行 | 否 |
-| 运行时间 | — |
-| 是否成功 | — |
-| 使用的 Agent | — |
-| `safe_status.sh` 是否被调用 | — |
-| `safe_create_note.sh` 是否被调用 | — |
-| `agent_note.txt` 是否被创建 | — |
-| `verify.py` 是否通过 | — |
-| 错误原因 | 本机当前未安装 `openclaw`（Stage 0 检查 `which openclaw` 显示 NOT FOUND） |
+| 是否已运行 | 是 |
+| 运行时间 | 2026-08-12 |
+| 是否成功 | 是 |
+| 使用的 Agent | OpenAI Codex（README Plan B） |
+| `safe_status.sh` 是否被调用 | 是 |
+| `safe_create_note.sh` 是否被调用 | 是 |
+| `agent_note.txt` 是否被创建 | 是；验证后已删除 |
+| `verify.py` 是否通过 | 是 |
+| 错误原因 | 无 |
 
 ## 备注
 
-- 本机当前没有 `openclaw` 命令，因此**未能让 OpenCLaw 实跑这个任务**。
-- 仓库本身已生成完毕，结构完整，可以：
-  - 等你装好 OpenCLaw 后让它来跑
-  - 或者按 README 中的「Plan B」自己手动跑三条命令验证仓库本身是健康的
+- 本次未安装或调用 OpenCLaw；按 README Plan B 由当前 Codex Agent 执行同一白名单任务。
+- 任务期间仅依次运行 `bash scripts/safe_status.sh`、`bash scripts/safe_create_note.sh`、`python3 verify.py`；未修改白名单脚本、验证器或任务文档。
+- 验证通过后额外确认 `agent_note.txt` 精确为 `created by local agent\n`，随后作为忽略的测试产物清理，仓库恢复清洁。
 
 ## 下一步建议
 
-1. 想真的体验 OpenCLaw：装好 → `cd` 进本目录 → 让它读 `AGENT_TASK.md`
-2. 想验证仓库自身完好：直接 `bash scripts/safe_status.sh && bash scripts/safe_create_note.sh && python3 verify.py`
-3. 不想验证：跳过本仓库即可。
+1. 如需对照 OpenCLaw：在另一次明确授权的实验中让它读 `AGENT_TASK.md`。
+2. 对照运行后应再次删除忽略的 `agent_note.txt`，避免后续 Agent 继承已完成的结果。
 
 ## 运行日志（你跑完后手动追加）
 
-```
-（在这里粘贴 verify.py 的终端输出）
+```text
+[验证] 检查 agent_note.txt 是否存在...
+[成功] agent_note.txt 内容符合预期: 'created by local agent'
 ```
